@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Submission Form</title>
+</head>
+<body>
+    <h1>Data Submission Form</h1>
+    <form id="dataForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" required>
+        <br>
+        <button type="button" onclick="submitData()">Submit</button>
+    </form>
+
+    <script>
+      function submitData() {
+    const name = document.getElementById('name').value;
+    const url = document.getElementById('url').value;
+
+    // Validate input (you can add more robust validation)
+    if (!name || !url) {
+        alert('Name and URL are required fields.');
+        return;
+    }
+
+    // Prepare data for submission
+    const data = {
+        name,
+        url
+    };
+
+    // Send data to the server
+    // Example using fetch
+    fetch('CLOUD_FUNCTION_URL', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: 'exampleName',
+                url: 'exampleUrl'
+            }),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+
+}
+    </script>
+</body>
+</html>
